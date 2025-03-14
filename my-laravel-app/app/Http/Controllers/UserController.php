@@ -17,21 +17,25 @@ class UserController extends Controller
 
     // Handle registration form submission
     public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        return redirect('/login')->with('success', 'Registration successful. Please login.');
-    }
+    // Debugging line: check if it's being reached
+    dd('Registration successful');
+
+    return redirect('/login')->with('success', 'Registration successful. Please login.');
+}
+
     
 
 // Show the login form

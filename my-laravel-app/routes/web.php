@@ -23,6 +23,9 @@ Route::resource('notes', NoteController::class);
 
 use App\Http\Controllers\UserController;
 
+
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+
 Route::get('/register', [UserController::class, 'showRegistrationForm']);
 Route::post('/register', [UserController::class, 'register'])->name('register');
 
