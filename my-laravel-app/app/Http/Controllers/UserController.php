@@ -46,17 +46,14 @@ public function showLoginForm()
 
 // Handle login form submission
 public function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|string|email',
-        'password' => 'required|string',
-    ]);
+    {
+        $credentials = $request->only('email', 'password');
 
-    if (Auth::attempt($credentials)) {
-        return redirect()->intended('/');
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('/notes');
+        }
+
+        return redirect('/login')->with('error', 'Invalid credentials. Please try again.');
     }
-
-    return redirect('/login')->with('error', 'Invalid credentials. Please try again.');
-}
 }
 
